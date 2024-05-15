@@ -4,7 +4,10 @@ dotenv.config();
 
 const configErrors: string[] = [];
 
-const validateEmptyString = (value: string | undefined, name: string):string => {
+const validateEmptyString = (
+  value: string | undefined,
+  name: string
+): string => {
   if (!value || value.trim() === "") {
     configErrors.push(`Missing ${name} in .env file`);
     return "";
@@ -39,7 +42,13 @@ const Config = {
     SERVICE: validateEmptyString(process.env.MAIL_SERVICE, "MAIL_SERVICE")
   },
 
-  BCRYPT_SALT: parseInt(validateEmptyString(process.env.BCRYPT_SALT, "BCRYPT_SALT"))
+  BCRYPT_SALT: parseInt(
+    validateEmptyString(process.env.BCRYPT_SALT, "BCRYPT_SALT")
+  ),
+  FRONTEND_BASE_URL: validateEmptyString(
+    process.env.FRONTEND_BASE_URL,
+    "FRONTEND_BASE_URL"
+  )
 };
 
 if (configErrors.length > 0) {
