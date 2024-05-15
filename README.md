@@ -4,7 +4,7 @@ An API for a logistics company, Gbewa Kia ("Bring it fast") that provides authen
 
 ## Documentation
 
-The API documentation can be found [here](https://documenter.getpostman.com/view/10619191/Tz5wWz9z)
+The API documentation can be found [here](https://documenter.getpostman.com/view/19461169/2sA3JRYK8c)
 
 ## Installation
 
