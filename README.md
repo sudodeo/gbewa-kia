@@ -39,7 +39,6 @@ docker run --name gbewa-kia-api -p 8989:8989 --env-file .env -d gbewa-kia-api
 - Express
 - TypeScript
 - PostgreSQL
-- TypeORM
 - JWT
 - Postman
 - Docker
