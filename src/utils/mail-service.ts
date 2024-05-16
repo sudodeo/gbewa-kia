@@ -2,6 +2,7 @@ import ejs from "ejs";
 import nodemailer, { type Transporter } from "nodemailer";
 import path from "path";
 import Config from "../config/config";
+import { IPackage } from "../domains/package/package-types";
 
 const templateBaseDir = path.join(__dirname, "../../email-templates/");
 
@@ -28,6 +29,22 @@ export class EmailService {
     const renderedTemplate = await ejs.renderFile(
       path.join(templateBaseDir, TemplateFileNames.RESET_PASSWORD),
       { link: resetURL }
+    );
+
+    await this.sendMail(email, subject, renderedTemplate);
+  }
+
+  static async sendPackageUpdateEmail(
+    email: string,
+    userName: string,
+    vpackage: IPackage
+  ): Promise<void> {
+    const subject = "Package Update";
+    const trackingLink = `${Config.FRONTEND_BASE_URL}/packages/tracking/${vpackage.trackingNumber}`;
+
+    const renderedTemplate = await ejs.renderFile(
+      path.join(templateBaseDir, TemplateFileNames.PACKAGE_UPDATE),
+      { package: { ...vpackage, trackingLink }, name: userName }
     );
 
     await this.sendMail(email, subject, renderedTemplate);
@@ -65,5 +82,5 @@ export class EmailService {
 export enum TemplateFileNames {
   RESET_PASSWORD = "reset-password.ejs",
   RESET_SUCCESSFUL = "reset-successful.ejs",
-  PACKAGE_SUBMITTED = "package-submitted.ejs"
+  PACKAGE_UPDATE = "package-update.ejs"
 }
