@@ -33,6 +33,12 @@ docker build -t gbewa-kia-api .
 docker run --name gbewa-kia-api -p 8989:8989 --env-file .env -d gbewa-kia-api
 ```
 
+> OR you can use the `docker-compose.yml` file to run the Docker container. Run the following command to start the container (you need to have Docker Compose installed)
+```bash
+docker compose build
+docker compose up -d
+```
+
 ## Technologies
 
 - Node.js
