@@ -18,7 +18,7 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
       notNull: true,
       unique: true
     },
-    password: {
+    password_hash: {
       type: "VARCHAR(100)",
       notNull: true
     },
@@ -26,6 +26,11 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
       type: "VARCHAR(100)",
       notNull: true,
       default: "'user'"
+    },
+    reauth: {
+      type: "BOOLEAN",
+      notNull: true,
+      default: false
     },
     created_at: {
       type: "TIMESTAMP",

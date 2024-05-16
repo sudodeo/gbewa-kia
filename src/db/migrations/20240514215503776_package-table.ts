@@ -4,9 +4,9 @@ export const shorthands: ColumnDefinitions | undefined = undefined;
 
 export async function up(pgm: MigrationBuilder): Promise<void> {
   pgm.db.query(
-    `CREATE TYPE package_status AS ENUM ('Pending', 'In Transit', 'Delivered')`
+    `CREATE TYPE package_status AS ENUM ('pending', 'confirmed', 'in transit', 'available for pickup', 'delivered')`
   );
-  
+
   pgm.createTable("packages", {
     id: {
       type: "UUID",
@@ -25,7 +25,7 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
     status: {
       type: "package_status",
       notNull: true,
-      default: "Pending"
+      default: "pending"
     },
     sender_id: {
       type: "UUID",
@@ -41,11 +41,21 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
       notNull: true
     },
     pickup_date: {
-      type: "DATE",
+      type: "timestamp",
       notNull: true
     },
+    tracking_number: {
+      type: "VARCHAR(25)",
+      notNull: true,
+      unique: true
+    },
     timestamp: {
-      type: "TIMESTAMP",
+      type: "timestamp",
+      notNull: true,
+      default: pgm.func("current_timestamp")
+    },
+    updated_at: {
+      type: "timestamp",
       notNull: true,
       default: pgm.func("current_timestamp")
     }
