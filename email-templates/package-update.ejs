@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Package Update. Status <%= package.status></title>
+</head>
+<body>
+    <p>Hi <%= name %>,</p>
+    <p>Your package has been updated. Please check the details below:</p>
+    <p>Package Name: <%= package.name %></p>
+    <p>Package Weight: <%= package.weight %></p>
+    <p>Package Status: <%= package.status %></p>
+    <p>Package Tracking Number: <%= package.trackingNumber %></p>
+    <p>Package Created At: <%= package.createdAt %></p>
+    <p>Package Updated At: <%= package.updatedAt %></p>
+
+    <p>Track your package <a href="<%= package.trackingLink %>">here</a></p>
+    <p>Thank you for using our service.</p>
+
+
+    <p>Best Regards,</p>
+
+    <p>
+        Gbewa Kia Team
+    </p>
+</body>
+</html>
