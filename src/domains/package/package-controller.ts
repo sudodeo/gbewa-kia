@@ -28,11 +28,6 @@ export class PackageController {
         PackageStatus.PENDING,
         user
       );
-      // EmailService.sendPackageUpdateEmail(
-      //   user.email,
-      //   user.name,
-      //   submittedPackage
-      // );
     } catch (error) {
       next(error);
     }

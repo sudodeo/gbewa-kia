@@ -37,17 +37,6 @@ export class PackageService {
 
     const interval = 2 * 60 * 1000; // 2 minutes in milliseconds
 
-    // setTimeout(async () => {
-    //   try {
-    //     await this.updatePackageStatus(
-    //       submittedPackage.id,
-    //       PackageStatus.PENDING,
-    //       user
-    //     );
-    //   } catch (error) {
-    //     console.error("Error executing updatePackageStatus:", error);
-    //   }
-    // }, interval);
     cron.schedule(`*/${interval} * * * *`, async () => {
       try {
         await this.updatePackageStatus(
