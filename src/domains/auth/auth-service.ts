@@ -1,11 +1,10 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt, { JwtPayload, SignOptions } from "jsonwebtoken";
 import Config from "../../config/config";
 import {
   BadRequest,
   Forbidden,
   InvalidInput,
-  ServerError,
   Unauthorized
 } from "../../middlewares/error-middleware";
 import {
@@ -130,8 +129,6 @@ export class AuthService {
     const resetURL = `${Config.FRONTEND_BASE_URL}/resetpassword?id=${token.id}?token=${resetToken}`;
 
     await EmailService.sendPasswordResetEmail(existingUser.email, resetURL);
-
-    return;
   }
 
   static async resetPassword(reqBody: {
@@ -145,8 +142,12 @@ export class AuthService {
     )) as unknown as { token: string; password: string; id: string };
 
     const existingToken = await TokenModel.findById(payload.id);
-    if (!existingToken || this.isExpiredToken(existingToken.createdAt)) {
-      existingToken ? await TokenModel.deleteOne(existingToken.id) : "";
+    if (!existingToken) {
+      throw new BadRequest("Invalid or expired token");
+    }
+
+    if (this.isExpiredToken(existingToken.createdAt)){
+      await TokenModel.deleteOne(existingToken.id);
       throw new BadRequest("Invalid or expired token");
     }
 
@@ -176,7 +177,6 @@ export class AuthService {
       subject,
       TemplateFileNames.RESET_SUCCESSFUL
     );
-    return;
   }
 
   private static async generateJWT(

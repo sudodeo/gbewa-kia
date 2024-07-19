@@ -18,9 +18,9 @@ export interface ISignup {
 }
 
 export enum TokenExpiry {
-  ACCESS_TOKEN = 15 * 60 * 1000, // 15 minutes
-  REFRESH_TOKEN = 7 * 24 * 60 * 60 * 1000, // 7 days
-  REMEMBER_ME = 30 * 24 * 60 * 60 * 1000 // 30 days
+  ACCESS_TOKEN = 900000, // 15 minutes in milliseconds
+  REFRESH_TOKEN = 604800000, // 7 days in milliseconds
+  REMEMBER_ME = 2592000000 // 30 days in milliseconds
 }
 
 export enum TokenType {
